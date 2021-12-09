@@ -1,0 +1,935 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{minimax}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{The Parks-McClellan Filter Design
+Method}\label{the-parks-mcclellan-filter-design-method}
+
+The Parks-McClellan (PM) algorithm is a clever application of advanced
+polynomial fitting techniques to the problem of FIR filter design. In
+this notebook we will explore the key ideas behind the method by
+considering the design of a simple Type-I lowpass filter.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{o}{\PYZpc{}}\PY{n+nx}{javascript}
+        \PY{n+nx}{IPython}\PY{p}{.}\PY{n+nx}{OutputArea}\PY{p}{.}\PY{n+nx}{prototype}\PY{p}{.}\PY{n+nx}{\PYZus{}should\PYZus{}scroll} \PY{o}{=} \PY{k+kd}{function}\PY{p}{(}\PY{n+nx}{lines}\PY{p}{)} \PY{p}{\PYZob{}}
+            \PY{k}{return} \PY{k+kc}{false}\PY{p}{;}
+        \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<IPython.core.display.Javascript object>
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} standard bookkeeping}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{Audio}\PY{p}{,} \PY{n}{display}
+        \PY{k+kn}{from} \PY{n+nn}{ipywidgets} \PY{k}{import} \PY{n}{interactive}\PY{p}{,} \PY{n}{fixed}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{figure.figsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+    \textbf{IMPORTANT} This notebook uses interactive widgets. If the
+interactive controls do not work or show up, please follow the
+instructions detailed here:
+https://github.com/jupyter-widgets/ipywidgets/blob/master/README.md
+
+    The first intuition is to recognize that finding the filter's
+coefficients is equivalent to solving a polynomial fitting problem.
+Since we want a linear-phase filter, the filter will be symmetric and we
+can easily show that in this case its frequency response is the
+real-valued function:
+
+\[
+    H(e^{j\omega}) = h[0] + \sum_{n = 1}^{M} 2h[n]\cos n\omega
+\]
+
+In the above expression, the \(N = 2M+1\) nonzero taps of the impulse
+response \(h[n]\) are \(h[-M]\) to \(h[M]\). Given a (positive) passband
+\([0, \omega_p]\) and a stopband \([\omega_s, \pi]\), we need to fit
+\(H(e^{j\omega})\) to one in the passband and zero in the stopband as in
+the following figure.
+
+Enter
+\href{https://en.wikipedia.org/wiki/Chebyshev_polynomials}{Chebishev
+polynomials} (CP): they have a ton of interesting properties but the
+relevant one here is that \(T_n(\cos\omega) = \cos n\omega\), where
+\(T_n(x)\) is the CP of order \(n\). Since the coefficients for the CP
+are easy to determine, with a simple substitution we can write:
+
+\[
+   H(e^{j\omega}) =  \sum_{n = 0}^{M}p_n x^n \qquad \mbox{with $x = \cos\omega$}
+\]
+
+While the relation between the \(M+1\) \(p_n\) coefficients and the
+\(2M+1\) filter coefficients is nonlinear, it is easily invertible and
+therefore we can just concentrate on fitting the degree-\(M\) polynomial
+over the desired response.
+
+    For the sake of simplicity, let's skip some of the details associated to
+the Chebishev substitution (for instance, the mapping \(x=\cos\omega\)
+reverses the abscissae) and let's examine the following equivalent
+problem:
+
+\begin{quote}
+consider the desired function:
+\[ D(x) = \begin{cases} 1 & \mbox{for $x\in [0, A]$} \\ 0 & \mbox{for $x\in [B,1]$} \end{cases}\]
+find the coefficients of a degree-\(M\) polynomial \(P(x)\) so that
+\(P(x)\approx D(x)\) over \([0,A]\cup [B,1]\)
+\end{quote}
+
+    \subsection{Standard polynomial
+fitting}\label{standard-polynomial-fitting}
+
+The simplest approach is to use standard polynomial fitting: choose
+\(a\) points in \([0, A]\) and \(b\) points in \([B, 1]\) so that
+\(a+b = M+1\) and find an interpolator over the coordinate pairs:
+
+\[
+  (x_0, 1), (x_1, 1), \ldots, (x_{a-1}, 1), (x_a, 0), (x_{a+1}, 0), \ldots, (x_{a+b-1}, 0)
+\]
+
+The result will minimize the mean square error between the interpolator
+and the piecewise characteristic we are trying to approximate.
+
+We can write a simple Python function to test this approach; you can
+play with the sliders below and see the result of the plain
+interpolation as the order and the size of the intervals change:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{MSE\PYZus{}fit}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{B}\PY{p}{,} \PY{n}{order}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{n}{order} \PY{o}{\PYZlt{}} \PY{l+m+mi}{3}\PY{p}{:}
+                \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{order is too small, we need at least 3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} interpolation points always one more than the order of the interpolator}
+            \PY{n}{pts} \PY{o}{=} \PY{n}{order}\PY{o}{+}\PY{l+m+mi}{1}
+            \PY{c+c1}{\PYZsh{} split number of interpolation points across intervals proportionately }
+            \PY{c+c1}{\PYZsh{}  with the length of each interval }
+            \PY{n}{ptsA} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{pts} \PY{o}{*} \PY{n}{A} \PY{o}{/} \PY{p}{(}\PY{n}{A}\PY{o}{+}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{B}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{k}{if} \PY{n}{ptsA} \PY{o}{\PYZlt{}} \PY{l+m+mi}{2}\PY{p}{:}
+                \PY{n}{ptsA} \PY{o}{=} \PY{l+m+mi}{2}
+            \PY{n}{ptsB} \PY{o}{=} \PY{n}{pts} \PY{o}{\PYZhy{}} \PY{n}{ptsA}
+            
+            \PY{c+c1}{\PYZsh{} for the MSE fit, place a point at each interval edge and distribute the rest}
+            \PY{c+c1}{\PYZsh{}  (if any) evenly over the interval}
+            \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}
+                \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{ptsA}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{A} \PY{o}{/} \PY{p}{(}\PY{n}{ptsA}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                \PY{n}{B} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{ptsB}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{B}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{ptsB}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}            
+                \PY{p}{)}\PY{p}{)}
+            \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}
+                \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{ptsA}\PY{p}{)}\PY{p}{,}
+                \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{ptsB}\PY{p}{)}            
+                \PY{p}{)}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} now just solve the linear interpolation problem}
+            \PY{n}{p} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{poly1d}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{polyfit}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{order}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{n}{p}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{MSE\PYZus{}fit\PYZus{}show}\PY{p}{(}\PY{n}{A}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{,} \PY{n}{B}\PY{o}{=}\PY{l+m+mf}{0.6}\PY{p}{,} \PY{n}{order}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+            \PY{n}{p}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{MSE\PYZus{}fit}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{B}\PY{p}{,} \PY{n}{order}\PY{p}{)}
+            
+            \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+            \PY{n}{lims} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mf}{1.5}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{A}\PY{p}{,}\PY{l+m+mf}{0.8}\PY{p}{,}\PY{l+m+mf}{1.2}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{B}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.2}\PY{p}{,}\PY{l+m+mf}{0.2}\PY{p}{)}\PY{p}{]}
+            \PY{k}{for} \PY{n}{n}\PY{p}{,} \PY{n}{r} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{lims}\PY{p}{)}\PY{p}{:}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{A}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                         \PY{p}{(}\PY{n}{B}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  
+                         \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                         \PY{n}{t}\PY{p}{,} \PY{n}{p}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{n}{r}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{r}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{n}{r}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{r}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{v} \PY{o}{=} \PY{n}{interactive}\PY{p}{(}\PY{n}{MSE\PYZus{}fit\PYZus{}show}\PY{p}{,} \PY{n}{order}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{)}\PY{p}{,} \PY{n}{A}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{,} \PY{n}{B}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{)}\PY{p}{)}
+        \PY{n}{display}\PY{p}{(}\PY{n}{v}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+interactive(children=(FloatSlider(value=0.4, description='A', max=0.5), FloatSlider(value=0.6, description='B', max=1.0, min=0.5), IntSlider(value=10, description='order', max=30, min=3), Output()), _dom_classes=('widget-interact',))
+    \end{verbatim}
+
+    
+    As you can see, simple polynomial interpolation, while minimizing the
+MSE has two problems:
+
+\begin{itemize}
+\tightlist
+\item
+  it becomes numerically unstable as soon as the order of the
+  interpolation exceeds 16 or 17
+\item
+  although the MSE is minimized, the \textbf{maximum} error can become
+  very large
+\end{itemize}
+
+Because of these problems, direct interpolation is rarely used in
+numerical analysis and filter design is no exception.
+
+    \subsection{Minimax fitting}\label{minimax-fitting}
+
+As we said, the first clever intuition behind the the Parks-McClellan
+algorithm is rephrasing the filter design problem as a polynomial
+interpolation. The real stroke of genius, however, is the use of a
+different kind of polynomial fitting called \emph{minimax}
+approximation. In this kind of fitting the goal is to minimixe the
+\emph{maximum} error between the polynomial and the desired function
+over the intervals of interest:
+
+\[
+    E = \min\max_{[0,A]\cup [B,1]} | P(x) - D(x) |
+\]
+
+This is brilliant for two reasons:
+
+\begin{itemize}
+\tightlist
+\item
+  the minimax criterion gives us a guarantee on the worst-case error for
+  the filter response
+\item
+  an obscure yet powerful theorem, called the \textbf{alternation
+  theorem}, gives us a remarkably straightforward recipe to build a
+  robust numerical algorithm that finds the solution.
+\end{itemize}
+
+    \subsubsection{The Alternation Theorem}\label{the-alternation-theorem}
+
+Because of the fundamental theorem of algebra, a non-constant polynomial
+cannot be constant over an interval. Since our polynomial cannot be a
+constant (it needs to move from 1 in the passband to zero in the
+stopband), it will necessarily oscillate over the approximation
+intervals. As you could see from the previous demo, MSE minimization
+tries to keep the oscillations small over the approximation intervals,
+but the price to pay is potentially wide oscillations at the band edges;
+on the other hand, the minimax approximation will allow for oscillations
+that are larger overall but that do not swing wildly. Since the
+polynomial oscillates around the target value, the error will oscillate
+between positive and negative peaks; the alternation theorem states that
+
+\begin{quote}
+\(P(x)\) is the minimax approximation to \(D(x)\) if and only if
+\(P(x) - D(x)\) alternates \(M+2\) times between \(+E\) and \(-E\) over
+\([0,A]\cup [B,1]\)
+\end{quote}
+
+The alternation theorem gives one thing right away: the ability to
+recognize if a polynomial is the minimax solution. All we need to do is
+look at the extrema of the error and check that
+
+\begin{itemize}
+\tightlist
+\item
+  they are \(M+2\)
+\item
+  they alternate in sign
+\item
+  their magnitude is exactly the same
+\end{itemize}
+
+We can write a simple Python function to find the extrema of the error:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{find\PYZus{}error\PYZus{}extrema}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{A}\PY{p}{,} \PY{n}{B}\PY{p}{)}\PY{p}{:}
+            \PY{n}{intervals} \PY{o}{=} \PY{p}{\PYZob{}}
+                \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{A}\PY{p}{)}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} 
+                \PY{p}{(}\PY{n}{B}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:} \PY{l+m+mi}{0}
+            \PY{p}{\PYZcb{}}
+            \PY{n}{loc} \PY{o}{=} \PY{p}{[}\PY{p}{]} \PY{c+c1}{\PYZsh{} locations of the extrema}
+            \PY{n}{err} \PY{o}{=} \PY{p}{[}\PY{p}{]} \PY{c+c1}{\PYZsh{} values of the extrema}
+            \PY{k}{for} \PY{n}{rng}\PY{p}{,} \PY{n}{val} \PY{o+ow}{in} \PY{n}{intervals}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} we don\PYZsq{}t need enormous precision, 100 points per interval will do}
+                \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{rng}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{rng}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+                \PY{n}{y} \PY{o}{=} \PY{n}{val} \PY{o}{\PYZhy{}} \PY{n}{p}\PY{p}{(}\PY{n}{t}\PY{p}{)} \PY{c+c1}{\PYZsh{} error values}
+                \PY{c+c1}{\PYZsh{} this finds all the points where the error changes sign:}
+                \PY{n}{ix} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sign}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{nonzero}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{} local min+max}
+                \PY{n}{loc} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{(}\PY{n}{loc}\PY{p}{,} \PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{t}\PY{p}{[}\PY{n}{ix}\PY{p}{]}\PY{p}{,} \PY{n}{t}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                \PY{n}{err} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{(}\PY{n}{err}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{n}{ix}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{n}{loc}\PY{p}{,} \PY{n}{err}
+\end{Verbatim}
+
+
+    With this, it's easy to verify that the MSE fit does not satisfy the
+alternation theorem: the magnitude of the peaks is not constant.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{A} \PY{o}{=} \PY{l+m+mf}{0.4}
+        \PY{n}{B} \PY{o}{=} \PY{l+m+mf}{0.6}
+        \PY{n}{p}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{MSE\PYZus{}fit}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{B}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}
+        
+        \PY{n}{loc}\PY{p}{,} \PY{n}{err} \PY{o}{=} \PY{n}{find\PYZus{}error\PYZus{}extrema}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{l+m+mf}{0.4}\PY{p}{,} \PY{l+m+mf}{0.6}\PY{p}{)}
+        
+        \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{loc}\PY{p}{,} \PY{n}{p}\PY{p}{(}\PY{n}{loc}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{or}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{t}\PY{p}{,} \PY{n}{p}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{A}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                 \PY{p}{(}\PY{n}{B}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  
+                 \PY{n}{t}\PY{p}{,} \PY{n}{p}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{loc}\PY{p}{,} \PY{n}{p}\PY{p}{(}\PY{n}{loc}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{or}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{The Remez Exchange
+Algorithm}\label{the-remez-exchange-algorithm}
+
+The alternation theorem provides us also with a very efficient way to
+find the coefficients of \(P(x)\). Suppose we knew the exact ordinates
+\(x_i\) of the \(M+2\) alternations; in this case we could solve the
+following system of linear equations
+
+\[
+    \left\{\begin{array}{lcl}
+        p_0 + p_1 x_0 + p_2 x_0^2 + \ldots + p_Mx_0^M + (-1)^0\epsilon &=& D(x_0) \\ 
+        p_0 + p_1 x_1 + p_2 x_1^2 + \ldots + p_Mx_1^M + (-1)^1\epsilon &=& D(x_1) \\ 
+        \ldots \\ 
+        p_0 + p_1 x_{M+1} + p_2 x_{M+1}^2 + \ldots + p_Mx_{M+1}^M + (-1)^{M+1}\epsilon &=& D(x_{M+1}) 
+      \end{array}\right.
+\]
+
+and find in one go both the \(M+1\) polynomial coefficients \emph{and}
+the value of the minimax error \(E=|\epsilon|\) (we use \(\epsilon\)
+instead of \(E\) in the linear system because we don't know the sign of
+the first alternation, it could be positive or negative). Although the
+above is a non-standard linear system of equations, it can be shown
+rather easily that, as long as the \(x_i\) are distinct, it does have a
+solution.
+
+Of course we don't know the \(x_i\) in advance but we can start with a
+guess, and solve the system anyway. Once we find the polynomial
+coefficients from the guess, we use Remez's exchange algorithm:
+
+\begin{itemize}
+\tightlist
+\item
+  find the locations for the maxima and minima of the error for the
+  \(P(x)\) we just found
+\item
+  if the extrema satisfy the alternation theorem, we are done
+\item
+  otherwise, use the new locations as a new guess, solve the system
+  again and repeat.
+\end{itemize}
+
+    The Remez algorithm is remarkably fast and robust. Here is an
+implementation you can play with. First, we need an auxiliary function
+to solve the system of equations above; we will use standard linear
+algebra functions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{def} \PY{n+nf}{solve}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} simple solver for the extended interpolation problem}
+            \PY{c+c1}{\PYZsh{} first build a Vandermonde matrix using the interpolation locations}
+            \PY{c+c1}{\PYZsh{} There are N+2 locations, so the matrix will be (N+2)x(N+2) but we }
+            \PY{c+c1}{\PYZsh{}  will replace the last column with the error sign}
+            \PY{n}{V} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vander}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{increasing}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} replace last column}
+            \PY{n}{V}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n+nb}{pow}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} just solve Ax = y}
+            \PY{n}{v} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{V}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} need to reverse the vector because poly1d starts with the highest degree}
+            \PY{n}{p} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{poly1d}\PY{p}{(}\PY{n}{v}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+            \PY{n}{e} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{v}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+            \PY{k}{return} \PY{n}{p}\PY{p}{,} \PY{n}{e}
+\end{Verbatim}
+
+
+    And here comes the main course: the Remez routine. The code is quite
+straightforward; it doesn't have a termination conditions since the
+number of iterations is passed as a parameter (we want to be able to
+show intermediate results).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{def} \PY{n+nf}{remez\PYZus{}fit}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{B}\PY{p}{,} \PY{n}{order}\PY{p}{,} \PY{n}{iterations}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{order} \PY{o}{\PYZlt{}} \PY{l+m+mi}{3}\PY{p}{:}
+                 \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{order is too small, we need at least 3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{pts} \PY{o}{=} \PY{n}{order}\PY{o}{+}\PY{l+m+mi}{2}
+             
+             \PY{c+c1}{\PYZsh{} initial choice of interpolation points: distribute them evenly}
+             \PY{c+c1}{\PYZsh{}  across the two regions as a proportion of each region\PYZsq{}s width}
+             \PY{n}{ptsA} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{pts} \PY{o}{*} \PY{n}{A} \PY{o}{/} \PY{p}{(}\PY{n}{A}\PY{o}{\PYZhy{}}\PY{n}{B}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{k}{if} \PY{n}{ptsA} \PY{o}{\PYZlt{}} \PY{l+m+mi}{2}\PY{p}{:}
+                 \PY{n}{ptsA} \PY{o}{=} \PY{l+m+mi}{2}
+             \PY{n}{ptsB} \PY{o}{=} \PY{n}{pts} \PY{o}{\PYZhy{}} \PY{n}{ptsA}
+             
+             \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}
+                 \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{ptsA}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{A} \PY{o}{/} \PY{p}{(}\PY{n}{ptsA}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{B} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{ptsB}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{B}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{ptsB}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}            
+                 \PY{p}{)}\PY{p}{)}
+             \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}
+                 \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{ptsA}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{ptsB}\PY{p}{)}            
+                 \PY{p}{)}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} the \PYZdq{}data\PYZdq{} dictionary only holds values that we will use in plotting}
+             \PY{n}{data} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+             
+             \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{iterations}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} previous interpolation points}
+                 \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prev\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{x}
+                 \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prev\PYZus{}y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{y}
+                 
+                 \PY{c+c1}{\PYZsh{} solve the interpolation problem }
+                 \PY{n}{p}\PY{p}{,} \PY{n}{e} \PY{o}{=} \PY{n}{solve}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+                 \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{err}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{e}
+                 \PY{c+c1}{\PYZsh{} find the extrema of the error}
+                 \PY{n}{loc}\PY{p}{,} \PY{n}{err} \PY{o}{=} \PY{n}{find\PYZus{}error\PYZus{}extrema}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{A}\PY{p}{,} \PY{n}{B}\PY{p}{)} 
+                 
+                 \PY{c+c1}{\PYZsh{} find the alternations }
+                 \PY{n}{alt} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{loc}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{c+c1}{\PYZsh{} each extremum is a new candidate for an alternation}
+                     \PY{n}{c} \PY{o}{=} \PY{p}{\PYZob{}}
+                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{loc}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{,}
+                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sign}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{sign}\PY{p}{(}\PY{n}{err}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{err\PYZus{}mag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{err}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{)}
+                     \PY{p}{\PYZcb{}}
+                     \PY{c+c1}{\PYZsh{} only keep extrema that are larger or equal than the minimum}
+                     \PY{c+c1}{\PYZsh{}  error returned by the interpolation solution}
+                     \PY{k}{if} \PY{n}{c}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{err\PYZus{}mag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{e} \PY{o}{\PYZhy{}} \PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{:}
+                         \PY{c+c1}{\PYZsh{} ensure that the error alternates; if the candidate has the  }
+                         \PY{c+c1}{\PYZsh{}  same sign, replace the last alternation with the candidate}
+                         \PY{c+c1}{\PYZsh{}  if its error value is larger}
+                         \PY{k}{if} \PY{n}{alt} \PY{o}{==} \PY{p}{[}\PY{p}{]} \PY{o+ow}{or} \PY{n}{alt}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sign}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{n}{c}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sign}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                             \PY{n}{alt}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+                         \PY{k}{elif} \PY{n}{alt}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{err\PYZus{}mag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{c}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{err\PYZus{}mag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                             \PY{n}{alt}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{p}{)}
+                             \PY{n}{alt}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} if there are more than the necessary number of alternations, trim }
+                 \PY{c+c1}{\PYZsh{}  from the left or the right keeping the largest errors}
+                 \PY{k}{while} \PY{n+nb}{len}\PY{p}{(}\PY{n}{alt}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{order} \PY{o}{+} \PY{l+m+mi}{2}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{alt}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{err\PYZus{}mag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{alt}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{err\PYZus{}mag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                         \PY{n}{alt}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{n}{alt}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} the new set of interpolation points}
+                 \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{n}{c}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{alt}\PY{p}{]}
+                 \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1} \PY{k}{if} \PY{n}{c} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{A} \PY{k}{else} \PY{l+m+mi}{0} \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{x}\PY{p}{]}
+                 \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{new\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{x}
+         
+             \PY{k}{return} \PY{n}{p}\PY{p}{,} \PY{n}{data}
+\end{Verbatim}
+
+
+    Finally, a simple auxiliary function to plot the results; the yellow
+dots indicate the guess used for the current interpolation while the
+blue stars show the new maxima that will be used as the new guess. As
+you can see the algorithm converges very rapidly. The error in passband
+and stopband is shown magnified in the bottom panels.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{def} \PY{n+nf}{remez\PYZus{}fit\PYZus{}show}\PY{p}{(}\PY{n}{A}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{,} \PY{n}{B}\PY{o}{=}\PY{l+m+mf}{0.6}\PY{p}{,} \PY{n}{order}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{iterations}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{n}{p}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{remez\PYZus{}fit}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{B}\PY{p}{,} \PY{n}{order}\PY{p}{,} \PY{n}{iterations}\PY{p}{)}
+             \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{loc\PYZus{}plot}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{B}\PY{p}{,} \PY{n}{data}\PY{p}{)}\PY{p}{:}      
+                 \PY{n}{e} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{err}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{A}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{p}{(}\PY{n}{B}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                          \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{A}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{e}\PY{p}{,}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{e}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cyan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{A}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{e}\PY{p}{,}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{e}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cyan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{p}{(}\PY{n}{B}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{e}\PY{p}{,}\PY{n}{e}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cyan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{(}\PY{n}{B}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{e}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{e}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cyan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prev\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prev\PYZus{}y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                          \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{new\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{p}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{new\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{n}{t}\PY{p}{,} \PY{n}{p}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}  
+             
+             \PY{n}{loc\PYZus{}plot}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{B}\PY{p}{,} \PY{n}{data}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+             
+             \PY{n}{e} \PY{o}{=} \PY{l+m+mf}{1.5} \PY{o}{*} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{err}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{lims} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{A} \PY{p}{,} \PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{e}\PY{p}{,} \PY{l+m+mi}{1}\PY{o}{+}\PY{n}{e}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{B}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{e}\PY{p}{,} \PY{n}{e}\PY{p}{)}\PY{p}{]}
+             \PY{k}{for} \PY{n}{n}\PY{p}{,} \PY{n}{r} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{lims}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{loc\PYZus{}plot}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{B}\PY{p}{,} \PY{n}{data}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{n}{r}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{r}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{n}{r}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{r}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{v} \PY{o}{=} \PY{n}{interactive}\PY{p}{(}\PY{n}{remez\PYZus{}fit\PYZus{}show}\PY{p}{,} \PY{n}{A}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.4}\PY{p}{)}\PY{p}{,} \PY{n}{B}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{)}\PY{p}{,} \PY{n}{order}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{)}\PY{p}{,} \PY{n}{iterations}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{n}{v}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+interactive(children=(FloatSlider(value=0.4, description='A', max=0.5, step=0.4), FloatSlider(value=0.6, description='B', max=1.0, min=0.5), IntSlider(value=5, description='order', max=12, min=3), IntSlider(value=1, description='iterations', max=10, min=1), Output()), _dom_classes=('widget-interact',))
+    \end{verbatim}
+
+    
+    \subsection{Weighting the error}\label{weighting-the-error}
+
+In the example above we used a very simple piecewise constant target
+function \(D(x)\) but the Alternation Theorem is actually much more
+general and the Remez algorithm can be used to approximate more
+complicated characteristics.
+
+In particular, a \emph{weighting function} can be used in the minimax
+problem formulation in order to tune the error in the approximation
+regions. Think of minimax filter design as a budgeting problem: for a
+given number of coefficients, we need to make sure that the bandpass and
+bandstop reqirements are fulfilled first, while the error is a
+consequence of the budget. With a weighting function we can decide to
+allocate a larger part of the budget to either passband or stopband.
+
+Mathematically, the minimax problem becomes:
+
+\[
+    E = \min\max_{[0,A]\cup [B,1]} | W(x)[P(x) - D(x)] |
+\]
+
+but the alternation theorem still holds:
+
+\begin{quote}
+\(P(x)\) is the minimax approximation to \(D(x)\) \emph{weighted by
+\(W(x)\)} if and only if \(W(x)[P(x) - D(x)]\) alternates \(M+2\) times
+between \(+E\) and \(-E\) over \([0,A]\cup [B,1]\)
+\end{quote}
+
+For instance, suppose we want the error in the first interval to be 10
+times smaller than in the second interval. In this case the weighting
+function will be equal to 0.1 over \([0,A]\) and just one over
+\([B,1]\). We can rewrite the extended interpolation problem as
+
+\[
+    \left\{\begin{array}{lcl}
+        p_0 + p_1 x_0 + p_2 x_0^2 + \ldots + p_Mx_0^M + (-1)^0\epsilon/10 &=& 1 \\ 
+        p_0 + p_1 x_1 + p_2 x_1^2 + \ldots + p_Mx_1^M + (-1)^1\epsilon/10 &=& 1 \\ 
+        \ldots \\ 
+        p_0 + p_1 x_{M} + p_2 x_{M}^2 + \ldots + p_Mx_{M}^M + (-1)^{M}\epsilon &=& 0\\ 
+        p_0 + p_1 x_{M+1} + p_2 x_{M+1}^2 + \ldots + p_Mx_{M+1}^M + (-1)^{M+1}\epsilon &=& 0 
+      \end{array}\right.
+\]
+
+The following code is a simple modification of the algorithm detailed
+above to include error weighting:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k}{def} \PY{n+nf}{remez\PYZus{}fit2}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{B}\PY{p}{,} \PY{n}{Aweight}\PY{p}{,} \PY{n}{order}\PY{p}{,} \PY{n}{iterations}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{weigh}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} the weighting function}
+                 \PY{k}{if} \PY{n}{np}\PY{o}{.}\PY{n}{isscalar}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{return} \PY{l+m+mf}{1.0}\PY{o}{/}\PY{n}{Aweight} \PY{k}{if} \PY{n}{x} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{A} \PY{k}{else} \PY{l+m+mi}{1}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{return} \PY{p}{[}\PY{l+m+mf}{1.0}\PY{o}{/}\PY{n}{Aweight} \PY{k}{if} \PY{n}{v} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{A} \PY{k}{else} \PY{l+m+mi}{1} \PY{k}{for} \PY{n}{v} \PY{o+ow}{in} \PY{n}{x}\PY{p}{]}
+                 
+             \PY{n}{pts} \PY{o}{=} \PY{n}{order}\PY{o}{+}\PY{l+m+mi}{2}
+             \PY{n}{ptsA} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{pts} \PY{o}{*} \PY{n}{A} \PY{o}{/} \PY{p}{(}\PY{n}{A}\PY{o}{\PYZhy{}}\PY{n}{B}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{k}{if} \PY{n}{ptsA} \PY{o}{\PYZlt{}} \PY{l+m+mi}{2}\PY{p}{:}
+                 \PY{n}{ptsA} \PY{o}{=} \PY{l+m+mi}{2}
+             \PY{n}{ptsB} \PY{o}{=} \PY{n}{pts} \PY{o}{\PYZhy{}} \PY{n}{ptsA}
+             \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}
+                 \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{ptsA}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{A} \PY{o}{/} \PY{p}{(}\PY{n}{ptsA}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{B} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{ptsB}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{B}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{ptsB}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}            
+                 \PY{p}{)}\PY{p}{)}
+             \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}
+                 \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{ptsA}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{ptsB}\PY{p}{)}            
+                 \PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{data} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}    
+             \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{iterations}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prev\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{x}
+                 \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prev\PYZus{}y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{y}
+                 
+                 \PY{c+c1}{\PYZsh{} solve the interpolation problem with weighted error}
+                 \PY{n}{V} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vander}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{increasing}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                 \PY{n}{V}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n+nb}{pow}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{n}{weigh}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                 \PY{n}{v} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{V}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+                 \PY{n}{p} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{poly1d}\PY{p}{(}\PY{n}{v}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{e} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{v}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Aerr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{e} \PY{o}{/} \PY{n}{Aweight}
+                 \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Berr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{e}
+                 
+                 \PY{n}{loc}\PY{p}{,} \PY{n}{err} \PY{o}{=} \PY{n}{find\PYZus{}error\PYZus{}extrema}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{A}\PY{p}{,} \PY{n}{B}\PY{p}{)} 
+                 \PY{n}{alt} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{loc}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{c} \PY{o}{=} \PY{p}{\PYZob{}}
+                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{loc}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{,}
+                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sign}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{sign}\PY{p}{(}\PY{n}{err}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{err\PYZus{}mag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{err}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{)} \PY{o}{/} \PY{n}{weigh}\PY{p}{(}\PY{n}{loc}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{)}
+                     \PY{p}{\PYZcb{}}
+                     \PY{k}{if} \PY{n}{c}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{err\PYZus{}mag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{e} \PY{o}{\PYZhy{}} \PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{:}
+                         \PY{k}{if} \PY{n}{alt} \PY{o}{==} \PY{p}{[}\PY{p}{]} \PY{o+ow}{or} \PY{n}{alt}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sign}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{n}{c}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sign}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                             \PY{n}{alt}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+                         \PY{k}{elif} \PY{n}{alt}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{err\PYZus{}mag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{c}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{err\PYZus{}mag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                             \PY{n}{alt}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{p}{)}
+                             \PY{n}{alt}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+                 \PY{k}{while} \PY{n+nb}{len}\PY{p}{(}\PY{n}{alt}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{order} \PY{o}{+} \PY{l+m+mi}{2}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{alt}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{err\PYZus{}mag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{alt}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{err\PYZus{}mag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                         \PY{n}{alt}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{n}{alt}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+                 
+                 \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{n}{c}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{alt}\PY{p}{]}
+                 \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1} \PY{k}{if} \PY{n}{c} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{A} \PY{k}{else} \PY{l+m+mi}{0} \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{x}\PY{p}{]}
+                 \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{new\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{x}
+         
+             \PY{k}{return} \PY{n}{p}\PY{p}{,} \PY{n}{data}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{def} \PY{n+nf}{remez\PYZus{}fit\PYZus{}show2}\PY{p}{(}\PY{n}{A}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{,} \PY{n}{B}\PY{o}{=}\PY{l+m+mf}{0.6}\PY{p}{,} \PY{n}{Aweight}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{order}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{iterations}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{n}{p}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{remez\PYZus{}fit2}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{B}\PY{p}{,} \PY{n}{Aweight}\PY{p}{,} \PY{n}{order}\PY{p}{,} \PY{n}{iterations}\PY{p}{)}
+             
+             \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{300}\PY{p}{)}
+             \PY{n}{Ae} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Aerr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{Be} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Berr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             
+             \PY{k}{def} \PY{n+nf}{loc\PYZus{}plot}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{B}\PY{p}{,} \PY{n}{data}\PY{p}{)}\PY{p}{:}  
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{A}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{p}{(}\PY{n}{B}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                          \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{A}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{Ae}\PY{p}{,}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{Ae}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cyan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{A}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{Ae}\PY{p}{,}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{Ae}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cyan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{p}{(}\PY{n}{B}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{Be}\PY{p}{,}\PY{n}{Be}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cyan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{(}\PY{n}{B}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{Be}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{Be}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cyan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prev\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prev\PYZus{}y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                          \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{new\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{p}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{new\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{n}{t}\PY{p}{,} \PY{n}{p}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}  
+             
+             \PY{n}{loc\PYZus{}plot}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{B}\PY{p}{,} \PY{n}{data}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+             
+             \PY{n}{lims} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{A} \PY{p}{,} \PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.5}\PY{o}{*}\PY{n}{Ae}\PY{p}{,} \PY{l+m+mi}{1}\PY{o}{+}\PY{l+m+mf}{1.5}\PY{o}{*}\PY{n}{Ae}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{B}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{1.5}\PY{o}{*}\PY{n}{Be}\PY{p}{,} \PY{l+m+mf}{1.5}\PY{o}{*}\PY{n}{Be}\PY{p}{)}\PY{p}{]}
+             \PY{k}{for} \PY{n}{n}\PY{p}{,} \PY{n}{r} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{lims}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{loc\PYZus{}plot}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{B}\PY{p}{,} \PY{n}{data}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{n}{r}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{r}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{n}{r}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{r}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)} 
+                 
+                 
+                 
+         \PY{n}{v} \PY{o}{=} \PY{n}{interactive}\PY{p}{(}\PY{n}{remez\PYZus{}fit\PYZus{}show2}\PY{p}{,} 
+                         \PY{n}{A}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.4}\PY{p}{)}\PY{p}{,} \PY{n}{B}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{)}\PY{p}{,} 
+                         \PY{n}{Aweight}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,}
+                         \PY{n}{order}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{,} 
+                         \PY{n}{iterations}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{n}{v}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+interactive(children=(FloatSlider(value=0.4, description='A', max=0.5, step=0.4), FloatSlider(value=0.6, description='B', max=1.0, min=0.5), IntSlider(value=50, description='Aweight', min=1, step=10), IntSlider(value=10, description='order', max=20, min=5), IntSlider(value=1, description='iterations', max=10, min=1), Output()), _dom_classes=('widget-interact',))
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

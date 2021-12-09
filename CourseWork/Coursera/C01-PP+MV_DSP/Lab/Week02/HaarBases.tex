@@ -1,0 +1,749 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{hb}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Basis for grayscale images}\label{basis-for-grayscale-images}
+
+\subsection{Introduction}\label{introduction}
+
+Consider the set of real-valued matrices of size \(M\times N\); we can
+turn this into a vector space by defining addition and scalar
+multiplication in the usual way:
+
+\begin{align}
+\mathbf{A} + \mathbf{B} &=  
+    \left[ 
+        \begin{array}{ccc} 
+            a_{0,0} & \dots & a_{0,N-1} \\ 
+            \vdots & & \vdots \\ 
+            a_{M-1,0} & \dots & b_{M-1,N-1} 
+        \end{array}
+    \right]
+    + 
+    \left[ 
+        \begin{array}{ccc} 
+            b_{0,0} & \dots & b_{0,N-1} \\ 
+            \vdots & & \vdots \\ 
+            b_{M-1,0} & \dots & b_{M-1,N-1} 
+        \end{array}
+    \right]
+    \\
+    &=
+    \left[ 
+        \begin{array}{ccc} 
+            a_{0,0}+b_{0,0} & \dots & a_{0,N-1}+b_{0,N-1} \\ 
+            \vdots & & \vdots \\ 
+            a_{M-1,0}+b_{M-1,0} & \dots & a_{M-1,N-1}+b_{M-1,N-1} 
+        \end{array}
+    \right]     
+    \\ \\ \\
+\beta\mathbf{A} &=  
+    \left[ 
+        \begin{array}{ccc} 
+            \beta a_{0,0} & \dots & \beta a_{0,N-1} \\ 
+            \vdots & & \vdots \\ 
+            \beta a_{M-1,0} & \dots & \beta a_{M-1,N-1}
+        \end{array}
+    \right]
+\end{align}
+
+As a matter of fact, the space of real-valued \(M\times N\) matrices is
+completely equivalent to \(\mathbb{R}^{MN}\) and we can always "unroll"
+a matrix into a vector. Assume we proceed column by column; then the
+matrix becomes
+
+\[
+    \mathbf{a} = \mathbf{A}[:] = [
+        \begin{array}{ccccccc}
+            a_{0,0} & \dots & a_{M-1,0} & a_{0,1} & \dots & a_{M-1,1} & \ldots & a_{0, N-1} & \dots & a_{M-1,N-1}
+        \end{array}]^T
+\]
+
+Although the matrix and vector forms represent exactly the same data,
+the matrix form allows us to display the data in the form of an image.
+Assume each value in the matrix is a grayscale intensity, where zero is
+black and 255 is white; for example we can create a checkerboard pattern
+of any size with the following function:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} usual pyton bookkeeping...}
+        \PY{o}{\PYZpc{}}\PY{k}{pylab} inline
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{IPython}
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{Image}
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        \PY{k+kn}{from} \PY{n+nn}{\PYZus{}\PYZus{}future\PYZus{}\PYZus{}} \PY{k}{import} \PY{n}{print\PYZus{}function}
+        
+        \PY{c+c1}{\PYZsh{} ensure all images will be grayscale}
+        \PY{n}{gray}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/opt/conda/envs/python2/lib/python2.7/site-packages/matplotlib/font\_manager.py:273: UserWarning: Matplotlib is building the font cache using fc-list. This may take a moment.
+  warnings.warn('Matplotlib is building the font cache using fc-list. This may take a moment.')
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Populating the interactive namespace from numpy and matplotlib
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<matplotlib.figure.Figure at 0x7f56f0a85f90>
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} let\PYZsq{}s create a checkerboard pattern}
+        \PY{n}{SIZE} \PY{o}{=} \PY{l+m+mi}{4}
+        \PY{n}{img} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{SIZE}\PY{p}{,} \PY{n}{SIZE}\PY{p}{)}\PY{p}{)}
+        \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{SIZE}\PY{p}{)}\PY{p}{:}
+            \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{SIZE}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if} \PY{p}{(}\PY{n}{n} \PY{o}{\PYZam{}} \PY{l+m+mh}{0x1}\PY{p}{)} \PY{o}{\PYZca{}} \PY{p}{(}\PY{n}{m} \PY{o}{\PYZam{}} \PY{l+m+mh}{0x1}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{img}\PY{p}{[}\PY{n}{n}\PY{p}{,} \PY{n}{m}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{255}
+        
+        \PY{c+c1}{\PYZsh{} now display the matrix as an image}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{matshow}\PY{p}{(}\PY{n}{img}\PY{p}{)}\PY{p}{;} 
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_2_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Given the equivalence between the space of \(M\times N\) matrices and
+\(\mathbb{R}^{MN}\) we can easily define the inner product between two
+matrices in the usual way:
+
+\[
+\langle \mathbf{A}, \mathbf{B} \rangle = \sum_{m=0}^{M-1} \sum_{n=0}^{N-1} a_{m,n} b_{m, n}
+\]
+
+(where we have neglected the conjugation since we'll only deal with
+real-valued matrices); in other words, we can take the inner product
+between two matrices as the standard inner product of their unrolled
+versions. The inner product allows us to define orthogonality between
+images and this is rather useful since we're going to explore a couple
+of bases for this space.
+
+\subsection{Actual images}\label{actual-images}
+
+Conveniently, using IPython, we can read images from disk in any given
+format and convert them to numpy arrays; let's load and display for
+instance a JPEG image:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{img} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{plt}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cameraman.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n+nb}{int}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{matshow}\PY{p}{(}\PY{n}{img}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The image is a \(64\times 64\) low-resolution version of the famous
+"cameraman" test picture. Out of curiosity, we can look at the first
+column of this image, which is is a \(64×1\) vector:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{img}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} array([156, 157, 157, 152, 154, 155, 151, 157, 152, 155, 158, 159, 159,
+               160, 160, 161, 155, 160, 161, 161, 164, 162, 160, 162, 158, 160,
+               158, 157, 160, 160, 159, 158, 163, 162, 162, 157, 160, 114, 114,
+               103,  88,  62, 109,  82, 108, 128, 138, 140, 136, 128, 122, 137,
+               147, 114, 114, 144, 112, 115, 117, 131, 112, 141,  99,  97])
+\end{Verbatim}
+            
+    The values are integers between zero and 255, meaning that each pixel is
+encoded over 8 bits (or 256 gray levels).
+
+    \subsection{The canonical basis}\label{the-canonical-basis}
+
+The canonical basis for any matrix space \(\mathbb{R}^{M\times N}\) is
+the set of "delta" matrices where only one element equals to one while
+all the others are 0. Let's call them \(\mathbf{E}_n\) with
+\(0 \leq n < MN\). Here is a function to create the canonical basis
+vector given its index:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{canonical}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{M}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{N}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+            \PY{n}{e} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{M}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{)}
+            \PY{n}{e}\PY{p}{[}\PY{p}{(}\PY{n}{n} \PY{o}{\PYZpc{}} \PY{n}{M}\PY{p}{)}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{n} \PY{o}{/} \PY{n}{M}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+            \PY{k}{return} \PY{n}{e}
+\end{Verbatim}
+
+
+    Here are some basis vectors: look for the position of white pixel, which
+differentiates them and note that we enumerate pixels column-wise:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{matshow}\PY{p}{(}\PY{n}{canonical}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{matshow}\PY{p}{(}\PY{n}{canonical}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{matshow}\PY{p}{(}\PY{n}{canonical}\PY{p}{(}\PY{l+m+mi}{49}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Transmitting images}\label{transmitting-images}
+
+Suppose we want to transmit the "cameraman" image over a communication
+channel. The intuitive way to do so is to send the pixel values one by
+one, which corresponds to sending the coefficients of the decomposition
+of the image over the canonical basis. So far, nothing complicated: to
+send the cameraman image, for instance, we will send
+\(64\times 64 = 4096\) coefficients in a row.
+
+Now suppose that a communication failure takes place after the first
+half of the pixels have been sent. The received data will allow us to
+display an approximation of the original image only. If we replace the
+missing data with zeros, here is what we would see, which is not very
+pretty:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} unrolling of the image for transmission (we go column by column, hence \PYZdq{}F\PYZdq{})}
+        \PY{n}{tx\PYZus{}img} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{n}{img}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{F}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} oops, we lose half the data}
+        \PY{n}{tx\PYZus{}img}\PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{tx\PYZus{}img}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+        
+        \PY{c+c1}{\PYZsh{} rebuild matrix}
+        \PY{n}{rx\PYZus{}img} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{tx\PYZus{}img}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{64}\PY{p}{,} \PY{l+m+mi}{64}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{F}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{matshow}\PY{p}{(}\PY{n}{rx\PYZus{}img}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Can we come up with a trasmission scheme that is more robust in the face
+of channel loss? Interestingly, the answer is yes, and it involves a
+different, more versatile basis for the space of images. What we will do
+is the following:
+
+\begin{itemize}
+\tightlist
+\item
+  describe the Haar basis, a new basis for the image space
+\item
+  project the image in the new basis
+\item
+  transmit the projection coefficients
+\item
+  rebuild the image using the basis vectors
+\end{itemize}
+
+We know a few things: if we choose an orthonormal basis, the analysis
+and synthesis formulas will be super easy (a simple inner product and a
+scalar multiplication respectively). The trick is to find a basis that
+will be robust to the loss of some coefficients.
+
+One such basis is the \textbf{Haar basis}. We cannot go into too many
+details in this notebook but, for the curious, a good starting point is
+\href{https://chengtsolin.wordpress.com/2015/04/15/real-time-2d-discrete-wavelet-transform-using-opengl-compute-shader/}{here}.
+Mathematical formulas aside, the Haar basis works by encoding the
+information in a \emph{hierarchical} way: the first basis vectors encode
+the broad information and the higher coefficients encode the detail.
+Let's have a look.
+
+First of all, to keep things simple, we will remain in the space of
+square matrices whose size is a power of two. The code to generate the
+Haar basis matrices is the following: first we generate a 1D Haar vector
+and then we obtain the basis matrices by taking the outer product of all
+possible 1D vectors (don't worry if it's not clear, the results are
+what's important):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{haar1D}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{SIZE}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} check power of two}
+            \PY{k}{if} \PY{n}{math}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{SIZE}\PY{p}{)} \PY{o}{/} \PY{n}{math}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{!=} \PY{n}{math}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{SIZE}\PY{p}{)} \PY{o}{/} \PY{n}{math}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Haar defined only for lengths that are a power of two}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{k}{return} \PY{k+kc}{None}
+            \PY{k}{if} \PY{n}{n} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{SIZE} \PY{o+ow}{or} \PY{n}{n} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{invalid Haar index}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{k}{return} \PY{k+kc}{None}
+            
+            \PY{c+c1}{\PYZsh{} zero basis vector}
+            \PY{k}{if} \PY{n}{n} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{SIZE}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} express n \PYZgt{} 1 as 2\PYZca{}p + q with p as large as possible;}
+            \PY{c+c1}{\PYZsh{} then k = SIZE/2\PYZca{}p is the length of the support}
+            \PY{c+c1}{\PYZsh{} and s = qk is the shift}
+            \PY{n}{p} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{n}\PY{p}{)} \PY{o}{/} \PY{n}{math}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+            \PY{n}{pp} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{pow}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{p}\PY{p}{)}\PY{p}{)}
+            \PY{n}{k} \PY{o}{=} \PY{n}{SIZE} \PY{o}{/} \PY{n}{pp}
+            \PY{n}{s} \PY{o}{=} \PY{p}{(}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{n}{pp}\PY{p}{)} \PY{o}{*} \PY{n}{k}
+            
+            \PY{n}{h} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{SIZE}\PY{p}{)}
+            \PY{n}{h}\PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{p}{:}\PY{n+nb}{int}\PY{p}{(}\PY{n}{s}\PY{o}{+}\PY{n}{k}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+            \PY{n}{h}\PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{s}\PY{o}{+}\PY{n}{k}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}\PY{n+nb}{int}\PY{p}{(}\PY{n}{s}\PY{o}{+}\PY{n}{k}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+            \PY{c+c1}{\PYZsh{} these are not normalized}
+            \PY{k}{return} \PY{n}{h}
+        
+        
+        \PY{k}{def} \PY{n+nf}{haar2D}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{SIZE}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} get horizontal and vertical indices}
+            \PY{n}{hr} \PY{o}{=} \PY{n}{haar1D}\PY{p}{(}\PY{n}{n} \PY{o}{\PYZpc{}} \PY{n}{SIZE}\PY{p}{,} \PY{n}{SIZE}\PY{p}{)}
+            \PY{n}{hv} \PY{o}{=} \PY{n}{haar1D}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{n} \PY{o}{/} \PY{n}{SIZE}\PY{p}{)}\PY{p}{,} \PY{n}{SIZE}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} 2D Haar basis matrix is separable, so we can}
+            \PY{c+c1}{\PYZsh{}  just take the column\PYZhy{}row product}
+            \PY{n}{H} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{outer}\PY{p}{(}\PY{n}{hr}\PY{p}{,} \PY{n}{hv}\PY{p}{)}
+            \PY{n}{H} \PY{o}{=} \PY{n}{H} \PY{o}{/} \PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{H} \PY{o}{*} \PY{n}{H}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{n}{H}
+\end{Verbatim}
+
+
+    First of all, let's look at a few basis matrices; note that the matrices
+have positive and negative values, so that the value of zero will be
+represented as gray:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{matshow}\PY{p}{(}\PY{n}{haar2D}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{matshow}\PY{p}{(}\PY{n}{haar2D}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{matshow}\PY{p}{(}\PY{n}{haar2D}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{matshow}\PY{p}{(}\PY{n}{haar2D}\PY{p}{(}\PY{l+m+mi}{63}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We can notice two key properties
+
+\begin{itemize}
+\tightlist
+\item
+  each basis matrix has positive and negative values in some symmetric
+  patter: this means that the basis matrix will implicitly compute the
+  difference between image areas
+\item
+  low-index basis matrices take differences between large areas, while
+  high-index ones take differences in smaller \textbf{localized} areas
+  of the image
+\end{itemize}
+
+We can immediately verify that the Haar matrices are orthogonal:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} let\PYZsq{}s use an 8x8 space; there will be 64 basis vectors}
+         \PY{c+c1}{\PYZsh{} compute all possible inner product and only print the nonzero results}
+         \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{r} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{haar2D}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)} \PY{o}{*} \PY{n}{haar2D}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{r} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{[}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{x}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{ \PYZhy{}\PYZgt{} }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{] }\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{n}{r}\PY{p}{)}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0x0 -> 1.000000] [1x1 -> 1.000000] [2x2 -> 1.000000] [3x3 -> 1.000000] [4x4 -> 1.000000] [5x5 -> 1.000000] [6x6 -> 1.000000] [7x7 -> 1.000000] [8x8 -> 1.000000] [9x9 -> 1.000000] [10x10 -> 1.000000] [11x11 -> 1.000000] [12x12 -> 1.000000] [13x13 -> 1.000000] [14x14 -> 1.000000] [15x15 -> 1.000000] [16x16 -> 1.000000] [16x17 -> -0.000000] [17x16 -> -0.000000] [17x17 -> 1.000000] [18x18 -> 1.000000] [19x19 -> 1.000000] [20x20 -> 1.000000] [21x21 -> 1.000000] [22x22 -> 1.000000] [23x23 -> 1.000000] [24x24 -> 1.000000] [24x25 -> -0.000000] [25x24 -> -0.000000] [25x25 -> 1.000000] [26x26 -> 1.000000] [27x27 -> 1.000000] [28x28 -> 1.000000] [29x29 -> 1.000000] [30x30 -> 1.000000] [31x31 -> 1.000000] [32x32 -> 1.000000] [33x33 -> 1.000000] [34x34 -> 1.000000] [35x35 -> 1.000000] [36x36 -> 1.000000] [37x37 -> 1.000000] [38x38 -> 1.000000] [39x39 -> 1.000000] [40x40 -> 1.000000] [41x41 -> 1.000000] [42x42 -> 1.000000] [43x43 -> 1.000000] [44x44 -> 1.000000] [45x45 -> 1.000000] [46x46 -> 1.000000] [47x47 -> 1.000000] [48x48 -> 1.000000] [49x49 -> 1.000000] [50x50 -> 1.000000] [51x51 -> 1.000000] [52x52 -> 1.000000] [53x53 -> 1.000000] [54x54 -> 1.000000] [55x55 -> 1.000000] [56x56 -> 1.000000] [57x57 -> 1.000000] [58x58 -> 1.000000] [59x59 -> 1.000000] [60x60 -> 1.000000] [61x61 -> 1.000000] [62x62 -> 1.000000] [63x63 -> 1.000000] 
+    \end{Verbatim}
+
+    OK! Everything's fine. Now let's transmit the "cameraman" image: first,
+let's verify that it works
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} project the image onto the Haar basis, obtaining a vector of 4096 coefficients}
+         \PY{c+c1}{\PYZsh{} this is simply the analysis formula for the vector space with an orthogonal basis}
+         \PY{n}{tx\PYZus{}img} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{64}\PY{o}{*}\PY{l+m+mi}{64}\PY{p}{)}
+         \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{64}\PY{o}{*}\PY{l+m+mi}{64}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{tx\PYZus{}img}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{img} \PY{o}{*} \PY{n}{haar2D}\PY{p}{(}\PY{n}{k}\PY{p}{,} \PY{l+m+mi}{64}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} now rebuild the image with the synthesis formula; since the basis is orthonormal}
+         \PY{c+c1}{\PYZsh{}  we just need to scale the basis matrices by the projection coefficients}
+         \PY{n}{rx\PYZus{}img} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{,} \PY{l+m+mi}{64}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{64}\PY{o}{*}\PY{l+m+mi}{64}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{rx\PYZus{}img} \PY{o}{+}\PY{o}{=} \PY{n}{tx\PYZus{}img}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{*} \PY{n}{haar2D}\PY{p}{(}\PY{n}{k}\PY{p}{,} \PY{l+m+mi}{64}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{matshow}\PY{p}{(}\PY{n}{rx\PYZus{}img}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Cool, it works! Now let's see what happens if we lose the second half of
+the coefficients:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} oops, we lose half the data}
+         \PY{n}{lossy\PYZus{}img} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{tx\PYZus{}img}\PY{p}{)}\PY{p}{;}
+         \PY{n}{lossy\PYZus{}img}\PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{tx\PYZus{}img}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+         
+         \PY{c+c1}{\PYZsh{} rebuild matrix}
+         \PY{n}{rx\PYZus{}img} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{,} \PY{l+m+mi}{64}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{64}\PY{o}{*}\PY{l+m+mi}{64}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{rx\PYZus{}img} \PY{o}{+}\PY{o}{=} \PY{n}{lossy\PYZus{}img}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{*} \PY{n}{haar2D}\PY{p}{(}\PY{n}{k}\PY{p}{,} \PY{l+m+mi}{64}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{matshow}\PY{p}{(}\PY{n}{rx\PYZus{}img}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    That's quite remarkable, no? We've lost the same amount of information
+as before but the image is still acceptable. This is because we lost the
+coefficients associated to the fine details of the image but we retained
+the "broad strokes" encoded by the first half.
+
+Note that if we lose the first half of the coefficients the result is
+markedly different:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{lossy\PYZus{}img} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{tx\PYZus{}img}\PY{p}{)}\PY{p}{;}
+         \PY{n}{lossy\PYZus{}img}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{tx\PYZus{}img}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+         
+         \PY{n}{rx\PYZus{}img} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{,} \PY{l+m+mi}{64}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{64}\PY{o}{*}\PY{l+m+mi}{64}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{rx\PYZus{}img} \PY{o}{+}\PY{o}{=} \PY{n}{lossy\PYZus{}img}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{*} \PY{n}{haar2D}\PY{p}{(}\PY{n}{k}\PY{p}{,} \PY{l+m+mi}{64}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{matshow}\PY{p}{(}\PY{n}{rx\PYZus{}img}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In fact, schemes like this one are used in \emph{progressive encoding}:
+send the most important information first and add details if the channel
+permits it. You may have experienced this while browsing the interned
+over a slow connection.
+
+All in all, a great application of a change of basis!
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

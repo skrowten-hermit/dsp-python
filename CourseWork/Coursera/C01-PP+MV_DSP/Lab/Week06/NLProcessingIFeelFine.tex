@@ -1,0 +1,846 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{FeelFine}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{I Feel Fine, Digitally}\label{i-feel-fine-digitally}
+
+    This notebook is a little musing inspired by the "internal mechanics" of
+a very famous audio snippet, namely the guitar sound at the beginning of
+the song "I Feel Fine", written and recorded by the Beatles in 1964. The
+historical significance of the record lies in the following claim by
+John Lennon:
+
+\begin{quote}
+\emph{"I defy anybody to find a record... unless it is some old blues
+record from 1922... that uses feedback that way. So I claim it for the
+Beatles. Before Hendrix, before The Who, before anybody. The first
+feedback on record."}
+\end{quote}
+
+In this notebook, we are going to look in detail at this famous first
+instance of recorded guitar feedback and we will try to set up a digital
+model of what went down in the recording studio on that fateful 18
+October 1964. In doing so we will look at a guitar simulator, at an amp
+model and at the mechanics of feedback. But, before anything else, let's
+listen to what this is all about:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{IPython}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{io} \PY{k}{import} \PY{n}{wavfile}
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{Image}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{14}\PY{p}{,} \PY{l+m+mi}{4} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{display}\PY{p}{(}\PY{n}{Image}\PY{p}{(}\PY{n}{filename}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beatles.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} fs will be the global \PYZdq{}clock\PYZdq{} of all discrete\PYZhy{}time systems in this notebook}
+        \PY{n}{fs}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{wavfile}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{iff.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} bring the 16bit wav samples into the [\PYZhy{}1, 1] range}
+        \PY{n}{data} \PY{o}{=} \PY{n}{data} \PY{o}{/} \PY{l+m+mf}{32767.0}
+        \PY{n}{IPython}\PY{o}{.}\PY{n}{display}\PY{o}{.}\PY{n}{Audio}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{,} \PY{n}{rate}\PY{o}{=}\PY{n}{fs}\PY{p}{,} \PY{n}{embed}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_0.jpeg}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} <IPython.lib.display.Audio object>
+\end{Verbatim}
+            
+    According to recording studio accounts, the sound was obtained by first
+playing the A string on Lennon's Gibson semiacoustic guitar and then by
+placing the guitar close to the amplifier. Indeed, the first two seconds
+of the clip sound like a standard decaying guitar tone; after that the
+feedback kicks in. The feedback, sometimes described as an "electric
+razor" buzz, is caused by two phenomena: the sound generated by the
+amplifier "hits" the A string and increases its vibration, and the
+resulting increased signal drives the amplifier into saturation.
+
+Schematically, these are the systems involved in the generation of the
+opening of the song:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{display}\PY{p}{(}\PY{n}{Image}\PY{p}{(}\PY{n}{filename}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bd.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mi}{600}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.jpeg}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In order to simulate this setup digitally, we need to come up with
+resonable models for:
+
+\begin{itemize}
+\tightlist
+\item
+  the guitar \(G\), including the possibility of driving the string
+  vibration during oscillation
+\item
+  the amplifier \(A\), including a saturating nonlinearity
+\item
+  the feedback channel \(F\), which will depend on the distance from the
+  guitar to the amplifier
+\end{itemize}
+
+Let's examine each component in more detail.
+
+    \subsection{1 - simulating a guitar}\label{simulating-a-guitar}
+
+    Although we have already studied the Karplus-Strong algorithm as an
+effective way to simulate a plucked sound, in this case we need a model
+that is closer to the actual physics of a guitar, since we'll need to
+drive the string oscillation in the feedback loop.
+
+In a guitar, the sound is generated by the oscillation of strings that
+are both under tension and fixed at both ends. Under these conditions, a
+displacement of the string from its rest position (i.e. the initial
+"plucking") will result in an oscillatory behavior in which the energy
+imparted by the plucking travels back and forth between the ends of the
+string in the form of standing waves. The natural modes of oscillation
+of a string are all multiples of the string's fundamental frequency,
+which is determined by its length, its mass and its tension (see, for
+instance, \href{http://www.phys.unsw.edu.au/jw/strings.html}{here} for a
+detailed explanation). This image (courtesy of
+\href{http://en.wikipedia.org/wiki/Vibrating_string}{Wikipedia}) shows a
+few oscillation modes on a string:
+
+These vibrations are propagated to the body of an acoustic guitar and
+converted into sound pressure waves or, for an electric guitar, they are
+converted into an electrical waveform by the guitar's pickups.
+
+We can appreciate this behavior in the initial (non feedback) portion of
+the "I Feel Fine" sound snippet; let's first look at the waveform in the
+time domain:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{;}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sample}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{amplitude}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The "pure guitar" part is approximately from sample 10000 to sample
+40000. If we plot the spectrum of this portion:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{s} \PY{o}{=} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftpack}\PY{o}{.}\PY{n}{fft}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+m+mi}{10000}\PY{p}{:}\PY{l+m+mi}{40000}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        \PY{n}{s} \PY{o}{=} \PY{n}{s}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{fs}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{s}\PY{p}{)}\PY{p}{;}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{frequency (Hz)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{magnitude}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Indeed we can see that the frequency content of the sound contains
+multiples of a fundamental frequency at 110Hz, which corresponds to the
+open A string on a standard-tuning guitar.
+
+From a signal processing point of view, the guitar string acts as a
+resonator resonating at several multiples of a fundamental frequency;
+this fundamental frequency determines the \emph{pitch} of the played
+note. In the digital domain, we know we can implement a resonator at a
+single frequency \(\omega_0\) with a second-order IIR of the form
+
+\[
+  H(z) = \frac{1}{(1 - \rho e^{j\omega_0}z^{-1})(1 - \rho e^{-j\omega_0}z^{-1})}, \quad \rho \approx 1
+\]
+
+i.e. by placing a pair of complex-conjugate poles close to the unit
+circle at an angle \(\pm\omega_0\). A simple extension of this concept,
+which places poles at \emph{all} multiples of a fundamental frequency,
+is the \textbf{comb filter}. A comb filter of order \(N\) has the
+transfer function
+
+\[
+  H(z) = \frac{1 - \rho z^{-1}}{1 - \rho^N z^{-N}}
+\]
+
+It is easy to see that the poles of the filters are at
+\(z_k = \rho e^{j\frac{2\pi}{N}k}\), except for \(k=0\) where the zero
+cancels the pole. For example, here is the frequency response of
+\(H(z) = 1/(1 - (0.99)^N z^{-N})\) for \(N=9\):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{signal}
+         
+         \PY{n}{w}\PY{p}{,} \PY{n}{h} \PY{o}{=} \PY{n}{signal}\PY{o}{.}\PY{n}{freqz}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mi}{99}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{9}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{w}\PY{p}{,} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{h}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    An added advantage of the comb filter is that it is very easy to
+implement, since it requires only two multiplication per output sample
+\emph{independently} of \(N\):
+
+\[
+    y[n] = \rho^N y[n-N] + x[n] - \rho x[n-1]
+\]
+
+With this, here's an idea for a guitar simulation: the string behavior
+is captured by a comb filter where \(N\) is given by the period (in
+samples) of the desired fundamental frequency. Let's try it out:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{class} \PY{n+nc}{guitar}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{pitch}\PY{o}{=}\PY{l+m+mi}{110}\PY{p}{,} \PY{n}{fs}\PY{o}{=}\PY{l+m+mi}{24000}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} init the class with desired pitch and underlying sampling frequency}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{M} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{fs} \PY{o}{/} \PY{n}{pitch}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} fundamental period in samples}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{R} \PY{o}{=} \PY{l+m+mf}{0.9999}               \PY{c+c1}{\PYZsh{} decay factor}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{RM} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{R} \PY{o}{*}\PY{o}{*} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{M} 
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ybuf} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{M}\PY{p}{)}  \PY{c+c1}{\PYZsh{} output buffer (circular)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{iy} \PY{o}{=} \PY{l+m+mi}{0}                   \PY{c+c1}{\PYZsh{} index into out buf}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{xbuf} \PY{o}{=} \PY{l+m+mi}{0}                 \PY{c+c1}{\PYZsh{} input buffer (just one sample)}
+                 
+             \PY{k}{def} \PY{n+nf}{play}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{t} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{R} \PY{o}{*} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{xbuf} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{RM} \PY{o}{*} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ybuf}\PY{p}{[}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{iy}\PY{p}{]}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ybuf}\PY{p}{[}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{iy}\PY{p}{]} \PY{o}{=} \PY{n}{t}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{iy} \PY{o}{=} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{iy} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{M}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{xbuf} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{n}\PY{p}{]}
+                     \PY{n}{y}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{=} \PY{n}{t}
+                 \PY{k}{return} \PY{n}{y}
+\end{Verbatim}
+
+
+    Now we model the string plucking as a simple impulse signal in zero and
+we input that to the guitar model:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} create a 2\PYZhy{}second signal}
+         \PY{n}{d} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{fs}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} impulse in zero (string plucked)}
+         \PY{n}{d}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+         
+         \PY{c+c1}{\PYZsh{} create the A string}
+         \PY{n}{y} \PY{o}{=} \PY{n}{guitar}\PY{p}{(}\PY{l+m+mi}{110}\PY{p}{,} \PY{n}{fs}\PY{p}{)}\PY{o}{.}\PY{n}{play}\PY{p}{(}\PY{n}{d}\PY{p}{)}
+         \PY{n}{IPython}\PY{o}{.}\PY{n}{display}\PY{o}{.}\PY{n}{Audio}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{rate}\PY{o}{=}\PY{n}{fs}\PY{p}{,} \PY{n}{embed}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} <IPython.lib.display.Audio object>
+\end{Verbatim}
+            
+    Ouch! The pitch may be right but the timbre is grotesque! The reason
+becomes self-evident if we look at the frequency content:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{s} \PY{o}{=} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftpack}\PY{o}{.}\PY{n}{fft}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{s} \PY{o}{=} \PY{n}{s}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{fs}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{s}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Although we have multiples of the fundamental, we actually have
+\emph{too many} spectral lines and, because of the zero in the filter, a
+highpass characteristic. In a real-world guitar both the stiffness of
+the string and the response of the guitar's body would limit the number
+of harmonics to just a few, as we saw in the figure above where we
+analyzed the snippet from the song.
+
+Well, it's not too hard to get rid of unwanted spectral content: just
+add a lowpass filter. In this case we use a simple Butterworth that
+keeps only the first five harmonics:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{signal}
+         
+         \PY{k}{class} \PY{n+nc}{guitar}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{pitch}\PY{o}{=}\PY{l+m+mi}{110}\PY{p}{,} \PY{n}{fs}\PY{o}{=}\PY{l+m+mi}{24000}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} init the class with desired pitch and underlying sampling frequency}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{M} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{fs} \PY{o}{/} \PY{n}{pitch}\PY{p}{)} \PY{p}{)}\PY{c+c1}{\PYZsh{} fundamental period in samples}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{R} \PY{o}{=} \PY{l+m+mf}{0.9999}               \PY{c+c1}{\PYZsh{} decay factor}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{RM} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{R} \PY{o}{*}\PY{o}{*} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{M} 
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ybuf} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{M}\PY{p}{)}  \PY{c+c1}{\PYZsh{} output buffer (circular)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{iy} \PY{o}{=} \PY{l+m+mi}{0}                   \PY{c+c1}{\PYZsh{} index into out buf}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{xbuf} \PY{o}{=} \PY{l+m+mi}{0}                 \PY{c+c1}{\PYZsh{} input buffer (just one sample)}
+                 \PY{c+c1}{\PYZsh{} 6th\PYZhy{}order Butterworth, keep 5 harmonics:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bfb}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bfa} \PY{o}{=} \PY{n}{signal}\PY{o}{.}\PY{n}{butter}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,} \PY{n+nb}{min}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{5.0} \PY{o}{*} \PY{n}{pitch} \PY{o}{/} \PY{n}{fs}\PY{p}{)}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bfb} \PY{o}{*}\PY{o}{=} \PY{l+m+mi}{1000}              \PY{c+c1}{\PYZsh{} set a little gain }
+                 \PY{c+c1}{\PYZsh{} initial conditions for the filter. We need this because we need to}
+                 \PY{c+c1}{\PYZsh{} filter on a sample\PYZhy{}by\PYZhy{}sample basis later on}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bfs} \PY{o}{=} \PY{n}{signal}\PY{o}{.}\PY{n}{lfiltic}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bfb}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bfa}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                 
+             \PY{k}{def} \PY{n+nf}{play}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{c+c1}{\PYZsh{} comb filter}
+                     \PY{n}{t} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{R} \PY{o}{*} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{xbuf} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{RM} \PY{o}{*} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ybuf}\PY{p}{[}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{iy}\PY{p}{]}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ybuf}\PY{p}{[}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{iy}\PY{p}{]} \PY{o}{=} \PY{n}{t}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{iy} \PY{o}{=} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{iy} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{M}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{xbuf} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{n}\PY{p}{]}
+                     \PY{c+c1}{\PYZsh{} lowpass filter, keep filter status for next sample}
+                     \PY{n}{y}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bfs} \PY{o}{=} \PY{n}{signal}\PY{o}{.}\PY{n}{lfilter}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bfb}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bfa}\PY{p}{,} \PY{p}{[}\PY{n}{t}\PY{p}{]}\PY{p}{,} \PY{n}{zi}\PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bfs}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{y}
+\end{Verbatim}
+
+
+    OK, let's give it a spin:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{y} \PY{o}{=} \PY{n}{guitar}\PY{p}{(}\PY{l+m+mi}{110}\PY{p}{,} \PY{n}{fs}\PY{p}{)}\PY{o}{.}\PY{n}{play}\PY{p}{(}\PY{n}{d}\PY{p}{)}
+         \PY{n}{IPython}\PY{o}{.}\PY{n}{display}\PY{o}{.}\PY{n}{Audio}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{rate}\PY{o}{=}\PY{n}{fs}\PY{p}{,} \PY{n}{embed}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} <IPython.lib.display.Audio object>
+\end{Verbatim}
+            
+    Ah, so much better, no? Almost like the real thing. We can check the
+spectrum and indeed we're close to what we wanted; the guitar is in the
+bag.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{s} \PY{o}{=} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftpack}\PY{o}{.}\PY{n}{fft}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{l+m+mi}{10000}\PY{p}{:}\PY{l+m+mi}{30000}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{s} \PY{o}{=} \PY{n}{s}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{fs}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{s}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{2 - the amplifier}\label{the-amplifier}
+
+    In the "I Feel Fine" setup, the volume of the amplifier remains
+constant; however, because of the feedback, the input will keep
+increasing and, at one point or another, any real-world amplifier will
+be driven into saturation. When that happens, the output is no longer a
+scaled version of the input but gets "clipped" to the maximum output
+level allowed by the amp. We can easily simulate this behavior with a
+simple memoryless clipping operator:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k}{def} \PY{n+nf}{amplify}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{n}{TH} \PY{o}{=} \PY{l+m+mf}{0.9}           \PY{c+c1}{\PYZsh{} threshold}
+             \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+             \PY{n}{y}\PY{p}{[}\PY{n}{y} \PY{o}{\PYZgt{}}  \PY{n}{TH}\PY{p}{]} \PY{o}{=}  \PY{n}{TH}
+             \PY{n}{y}\PY{p}{[}\PY{n}{y} \PY{o}{\PYZlt{}} \PY{o}{\PYZhy{}}\PY{n}{TH}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{TH}
+             \PY{k}{return} \PY{n}{y}
+\end{Verbatim}
+
+
+    We can easily check the characteristic of the amplifier simulator:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{amplify}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{input}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{output}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    While the response is linear between -TH and TH, it is important to
+remark that the clipping introduces a nonlinearity in the processing
+chain. In the case of linear systems, sinusoids are eigenfunctions and
+therefore a linear system can only alter a sinusoid by modifying its
+amplitude and phase. This is not the case with nonlinear systems, which
+can profoundly alter the spectrum of a signal by creating new
+frequencies. While these effects are very difficult to analyze
+mathematically, from the acoustic point of view nonlinear distortion can
+be very interesting, and "I Feel Fine" is just one example amongst
+countless others.
+
+It is instructive at this point to look at the spectrogram (i.e. the
+STFT) of the sound sample (figure obtained with a commercial audio
+spectrum analyzer); note how, indeed, the spectral content shows many
+more spectral lines after the nonlinearity of the amplifier comes into
+play.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{display}\PY{p}{(}\PY{n}{Image}\PY{p}{(}\PY{n}{filename}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{specgram.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mi}{800}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{3 - the acoustic feedback}\label{the-acoustic-feedback}
+
+    The last piece of the processing chain is the acoustic channel that
+closes the feedback loop. The sound pressure waves generated by the
+loudspeaker of the amplifier travel through the air and eventually reach
+the vibrating string. For feedback to kick in, two things must happen:
+
+\begin{itemize}
+\tightlist
+\item
+  the energy transfer from the pressure wave to the vibrating string
+  should be non-negligible
+\item
+  the phase of the vibrating string must be sufficiently aligned with
+  the phase of the sound wave in order for the sound wave to "feed" the
+  vibration.
+\end{itemize}
+
+Sound travels in the air at about 340 meters per second and sound
+pressure decays with the reciprocal of the traveled distance. We can
+build an elementary acoustic channel simulation by neglecting everything
+except delay and attenuation. The output of the acoustic channel for a
+guitar-amplifier distance of \(d\) meters will be therefore
+
+\[
+    y[n] = \alpha x[n-M]
+\]
+
+where \(\alpha = 1/d\) and \(M\) is the propagation delay in samples;
+with an internal clock of \(F_s\) Hz we have
+\(M = \lfloor d/(c F_s) \rfloor\) where \(c\) is the speed of sound.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k}{class} \PY{n+nc}{feedback}\PY{p}{:}
+             \PY{n}{SPEED\PYZus{}OF\PYZus{}SOUND} \PY{o}{=} \PY{l+m+mf}{343.0} \PY{c+c1}{\PYZsh{} m/s}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{max\PYZus{}distance\PYZus{}m} \PY{o}{=} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{fs}\PY{o}{=}\PY{l+m+mi}{24000}\PY{p}{)}\PY{p}{:}  
+                 \PY{c+c1}{\PYZsh{} init class with maximum distance}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{L} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n}{max\PYZus{}distance\PYZus{}m} \PY{o}{/} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{SPEED\PYZus{}OF\PYZus{}SOUND} \PY{o}{*} \PY{n}{fs}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{xbuf} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{L}\PY{p}{)}     \PY{c+c1}{\PYZsh{} circular buffer}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ix} \PY{o}{=} \PY{l+m+mi}{0}
+                 
+             \PY{k}{def} \PY{n+nf}{get}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{distance}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{d} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n}{distance} \PY{o}{/} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{SPEED\PYZus{}OF\PYZus{}SOUND} \PY{o}{*} \PY{n}{fs}\PY{p}{)}\PY{p}{)}    \PY{c+c1}{\PYZsh{} delay in samples}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{xbuf}\PY{p}{[}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ix}\PY{p}{]} \PY{o}{=} \PY{n}{x}
+                 \PY{n}{x} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{xbuf}\PY{p}{[}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{L} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ix} \PY{o}{\PYZhy{}} \PY{n}{d}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{L}\PY{p}{]}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ix} \PY{o}{=} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ix} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{L}
+                 \PY{k}{return} \PY{n}{x} \PY{o}{/} \PY{n+nb}{float}\PY{p}{(}\PY{n}{distance}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{4 - play it, Johnny}\label{play-it-johnny}
+
+    OK, we're ready to play. We will generate a few seconds of sound, one
+sample at a time, following these steps:
+
+\begin{itemize}
+\tightlist
+\item
+  generate a guitar sample
+\item
+  process it with the nonlinear amplifier
+\item
+  feed it back to the guitar via the acoustic channel using a
+  time-varying distance
+\end{itemize}
+
+During the simulation, we will change the distance used in the feedback
+channel model to account for the fact that the guitar is first played at
+a distance from the amplifier, and then it is placed very close to it.
+In the first phase, the sound will simply be a decaying note and then
+the feedback will start moving the string back in full swing and drive
+the amp into saturation. We also need to introduce some coupling loss
+between the sound pressure waves emitted by the loudspeaker and the
+string, since air and wound steel have rather different impedences.
+
+Let's see if that works:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{g} \PY{o}{=} \PY{n}{guitar}\PY{p}{(}\PY{l+m+mi}{110}\PY{p}{)}    \PY{c+c1}{\PYZsh{} the A string}
+         \PY{n}{f} \PY{o}{=} \PY{n}{feedback}\PY{p}{(}\PY{p}{)}     \PY{c+c1}{\PYZsh{} the feedback channel}
+         
+         \PY{c+c1}{\PYZsh{} the \PYZdq{}coupling loss\PYZdq{} between air and string is high. Let\PYZsq{}s say that}
+         \PY{c+c1}{\PYZsh{}  it is about 80dBs}
+         \PY{n}{COUPLING\PYZus{}LOSS} \PY{o}{=} \PY{l+m+mf}{0.0001}
+         
+         \PY{c+c1}{\PYZsh{} John starts 3m away and then places the guitar basically against the amp}
+         \PY{c+c1}{\PYZsh{}  after 1.5 seconds}
+         \PY{n}{START\PYZus{}DISTANCE} \PY{o}{=} \PY{l+m+mi}{3} 
+         \PY{n}{END\PYZus{}DISTANCE} \PY{o}{=} \PY{l+m+mf}{0.05}
+         
+         \PY{n}{N} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{fs} \PY{o}{*} \PY{l+m+mi}{5}\PY{p}{)}         \PY{c+c1}{\PYZsh{} play for 5 seconds}
+         \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{N}\PY{p}{)}     
+         \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}            \PY{c+c1}{\PYZsh{} the initial plucking}
+         \PY{c+c1}{\PYZsh{} now we create each sample in a loop by processing the guitar sound}
+         \PY{c+c1}{\PYZsh{} thru the amp and then feeding back the attenuated and delayed sound}
+         \PY{c+c1}{\PYZsh{} to the guitar}
+         \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+             \PY{n}{y}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{=} \PY{n}{amplify}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{play}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+             \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{n}{COUPLING\PYZus{}LOSS} \PY{o}{*} \PY{n}{f}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{,} \PY{n}{START\PYZus{}DISTANCE} \PY{k}{if} \PY{n}{n} \PY{o}{\PYZlt{}} \PY{p}{(}\PY{l+m+mf}{1.5} \PY{o}{*} \PY{n}{fs}\PY{p}{)} \PY{k}{else} \PY{n}{END\PYZus{}DISTANCE}\PY{p}{)}\PY{p}{]}
+                
+                 
+         \PY{n}{IPython}\PY{o}{.}\PY{n}{display}\PY{o}{.}\PY{n}{Audio}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{rate}\PY{o}{=}\PY{n}{fs}\PY{p}{,} \PY{n}{embed}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} <IPython.lib.display.Audio object>
+\end{Verbatim}
+            
+    Pretty close, no? Of course the sound is not as rich as the original
+recording since
+
+\begin{itemize}
+\tightlist
+\item
+  real guitars and real amplifiers are very complex physical system with
+  many more types of nonlinearities; amongst others:
+\item
+  the spectral content generated by the string varies with the amplitude
+  of its oscillation
+\item
+  the spectrum of the generated sound is not perfectly harmonic due to
+  the physical size of the string
+\item
+  the string may start touching the frets when driven into large
+  oscillations
+\item
+  the loudspeaker may introduce additional frequencies if driven too
+  hard
+\item
+  ...
+\item
+  we have neglected the full frequency response of the amp both in
+  linear and in nonlinear mode
+\item
+  it's the BEATLES, man! How can DSP compete?
+\end{itemize}
+
+Well, hope this was a fun and instructive foray into music and signal
+processing. You can now play with the parameters of the simulation and
+try to find alternative setups:
+
+\begin{itemize}
+\tightlist
+\item
+  try to change the characteristic of the amp, maybe using a sigmoid
+  (hyperbolic tangent)
+\item
+  change the gain, the coupling loss or the frequency of the guitar
+\item
+  change John's guitar's position and verify that feedback does not
+  occur at all distances.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
